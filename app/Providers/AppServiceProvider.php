@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use illuminate\database\events\QueryExecuted;
-use illuminate\support\facades\DB;
+use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Debug database
         DB::listen(function (QueryExecuted $query) {
             Log::into($query->sql);
         });
